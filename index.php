@@ -1,6 +1,6 @@
 <?php
 /**
- * index.php - Aplikasi To-Do List
+ * index.php - Daily Workspace
  * Fitur: tambah, edit (pop-up), centang selesai, hapus (pop-up konfirmasi)
  */
 session_start();
@@ -164,6 +164,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $tasks[$i]['status'] = 'selesai';
             }
             break;
+        case 'belum_semua':
+            foreach ($tasks as $i => $task) {
+                $tasks[$i]['status'] = 'belum';
+            }
+            break;
         case 'hapus':
             $tasks = hapusTugas($tasks, $id);
             break;
@@ -184,7 +189,7 @@ $_SESSION['tasks'] = $tasks; // simpan hasil normalisasi
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Aplikasi To-Do List</title>
+    <title>Daily Workspace</title>
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -195,8 +200,8 @@ $_SESSION['tasks'] = $tasks; // simpan hasil normalisasi
 
     <!-- HEADER -->
     <header class="app-header">
-        <h1 class="h3">Aplikasi To-Do List</h1>
-        <p>Catat tugas harianmu dengan rapi</p>
+        <h1 class="h3">Daily Workspace</h1>
+        <p>Kelola tugas harian Anda.</p>
     </header>
 
     <!-- FORM TAMBAH TUGAS -->
@@ -216,11 +221,20 @@ $_SESSION['tasks'] = $tasks; // simpan hasil normalisasi
         <?php tampilkanDaftar($tasks); ?>
     </ul>
 
-    <?php if (!empty($tasks)): ?>
+    <?php if (in_array('belum', array_column($tasks, 'status'), true)): ?>
         <form method="post" class="mb-2">
             <input type="hidden" name="aksi" value="selesai_semua">
             <button type="submit" class="btn btn-success w-100">
                 Ceklis Semua Task
+            </button>
+        </form>
+    <?php endif; ?>
+
+    <?php if (in_array('selesai', array_column($tasks, 'status'), true)): ?>
+        <form method="post" class="mb-2">
+            <input type="hidden" name="aksi" value="belum_semua">
+            <button type="submit" class="btn btn-outline-secondary w-100">
+                Batalkan Ceklis Semua
             </button>
         </form>
     <?php endif; ?>
@@ -300,7 +314,7 @@ $_SESSION['tasks'] = $tasks; // simpan hasil normalisasi
   </div>
 </div>
 
-<!-- Bootstrap JS (wajib untuk pop-up) -->
+<!-- Bootstrap JS (untuk pop-up) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // Isi data tugas ke dalam pop-up saat dibuka
