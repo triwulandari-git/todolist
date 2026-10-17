@@ -1,0 +1,15 @@
+/* assets/style.css - CSS sederhana untuk menata tampilan */
+body {
+    background-color: #f4f6f9;
+}
+
+.todo-container {
+    max-width: 650px;
+    margin: 40px auto;
+}
+
+/* Tugas yang sudah selesai dicoret */
+.task-selesai {
+    text-decoration: line-through;
+    color: #888;
+}
