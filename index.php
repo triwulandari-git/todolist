@@ -159,6 +159,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'toggle':
             $tasks = ubahStatus($tasks, $id);
             break;
+        case 'selesai_semua':
+            foreach ($tasks as $i => $task) {
+                $tasks[$i]['status'] = 'selesai';
+            }
+            break;
         case 'hapus':
             $tasks = hapusTugas($tasks, $id);
             break;
@@ -210,6 +215,15 @@ $_SESSION['tasks'] = $tasks; // simpan hasil normalisasi
     <ul class="list-group mb-3 shadow-sm">
         <?php tampilkanDaftar($tasks); ?>
     </ul>
+
+    <?php if (!empty($tasks)): ?>
+        <form method="post" class="mb-2">
+            <input type="hidden" name="aksi" value="selesai_semua">
+            <button type="submit" class="btn btn-success w-100">
+                Ceklis Semua Task
+            </button>
+        </form>
+    <?php endif; ?>
 
     <!-- HAPUS SEMUA YANG DICENTANG -->
     <button type="button" class="btn btn-soft-danger w-100"
