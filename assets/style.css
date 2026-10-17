@@ -1,15 +1,84 @@
-/* assets/style.css - CSS sederhana untuk menata tampilan */
+/* assets/style.css - tema elegan: navy + emas */
+:root {
+    --navy: #1f2a44;
+    --navy-soft: #2c3a5c;
+    --gold: #b08d57;
+    --gold-soft: #f3ece0;
+    --cream: #f7f4ee;
+    --text: #2b2f3a;
+    --muted: #8a8f9c;
+}
+
 body {
-    background-color: #f4f6f9;
+    background: linear-gradient(160deg, var(--cream) 0%, #ebe6dc 100%);
+    min-height: 100vh;
+    color: var(--text);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
 .todo-container {
-    max-width: 650px;
+    max-width: 680px;
     margin: 40px auto;
+    padding: 0 12px;
 }
 
-/* Tugas yang sudah selesai dicoret */
-.task-selesai {
-    text-decoration: line-through;
-    color: #888;
+/* Header */
+.app-header {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(31, 42, 68, .25);
+    border-bottom: 4px solid var(--gold);
 }
+.app-header h1 { font-weight: 600; letter-spacing: .5px; margin: 0; }
+.app-header p { color: #d9c9a8; margin: 6px 0 0; }
+
+/* Kartu */
+.card {
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(31, 42, 68, .08);
+}
+
+/* Daftar tugas */
+.list-group-item {
+    border: none;
+    border-bottom: 1px solid #eee7da;
+    padding: 14px 16px;
+    background: #fff;
+}
+.list-group-item:first-child { border-radius: 14px 14px 0 0; }
+.list-group-item:last-child { border-bottom: none; border-radius: 0 0 14px 14px; }
+.list-group-item:hover { background: var(--gold-soft); }
+
+.task-selesai { text-decoration: line-through; color: var(--muted); }
+
+.form-check-input { width: 1.2em; height: 1.2em; cursor: pointer; }
+.form-check-input:checked { background-color: var(--gold); border-color: var(--gold); }
+.form-check-input:focus,
+.form-control:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 .2rem rgba(176, 141, 87, .25);
+}
+
+/* Tombol */
+.btn-navy { background: var(--navy); color: #fff; border: none; }
+.btn-navy:hover { background: var(--navy-soft); color: #fff; }
+.btn-gold-outline { color: var(--gold); border: 1px solid var(--gold); background: transparent; }
+.btn-gold-outline:hover { background: var(--gold); color: #fff; }
+.btn-soft-danger { color: #a94442; border: 1px solid #d9a3a1; background: transparent; }
+.btn-soft-danger:hover { background: #a94442; color: #fff; }
+
+/* Badge */
+.badge-selesai { background: #5f8f74; }
+.badge-belum { background: #9a9fae; }
+
+/* Modal */
+.modal-content { border: none; border-radius: 16px; overflow: hidden; }
+.modal-header { background: var(--navy); color: #fff; border-bottom: 3px solid var(--gold); }
+.modal-header .btn-close { filter: invert(1); }
+
+.reset-link { font-size: .8rem; color: var(--muted); text-decoration: none; }
